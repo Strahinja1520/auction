@@ -1,0 +1,15 @@
+{% extends "_global/index.html" %} {% block main %}
+<div class="povratna-poruka">
+  {% if message == "Uspesno ste editovali aukciju" %}
+  <div class="message-box">
+    <p>{{message}}</p>
+    <a href="{{BASE}}user/profile">Vrati se na profil</a>
+  </div>
+
+  {% else %}
+  <div class="message-box">
+    <p>{{message}}</p>
+    <a href="{{app.request.headers.get('referer')}}">Vrati se nazad</a>
+  </div>
+</div>
+{% endif %} {% endblock %}

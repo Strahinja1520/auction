@@ -1,0 +1,106 @@
+{% extends "_global/index.html" %}{% block title %}Registracija{% endblock %} {%
+block main %}
+<div class="register column">
+  <div class="register-img">
+    <img src="{{BASE}}assets/img/reg2.svg" alt="" />
+  </div>
+  <div class="register-form">
+    <h1
+      style="
+        padding: 10px;
+        background-color: #4c12fcbe;
+        color: white;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 40px;
+        width: 80%;
+        text-transform: uppercase;
+      "
+    >
+      Registracija
+    </h1>
+    <form action="{{ BASE }}user/register" method="post">
+      <div>
+        <input
+          type="text"
+          id="input_forename"
+          name="reg_forename"
+          required
+          placeholder="Unesite Ime"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id="input_lastname"
+          name="reg_lastname"
+          required
+          placeholder="Unesite Prezime"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id="input_username"
+          name="reg_username"
+          required
+          placeholder="Unesite korisnicko ime"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id="input_phone"
+          name="reg_phone"
+          required
+          placeholder="06X XXX XXX(X) (bez razmaka)"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <input
+          type="email"
+          id="input_email"
+          name="reg_email"
+          required
+          placeholder="Unesite Vas E-mail"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <input
+          type="password"
+          id="input_password_1"
+          name="reg_password_1"
+          required
+          placeholder="Unesite zeljenu sifru"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <input
+          type="password"
+          id="input_password_2"
+          name="reg_password_2"
+          required
+          placeholder="Potvrdite sifru"
+          class="input-form"
+        />
+      </div>
+
+      <button class="button-form" type="submit">Registruj se!</button>
+    </form>
+  </div>
+</div>
+{% endblock %} {% block scripts%}
+<script src="{{BASE}}/assets/js/regValidation.js"></script>
+{% endblock %}

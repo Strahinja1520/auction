@@ -1,0 +1,15 @@
+{% extends "_global/index.html" %}{% block title %}Kategorije{% endblock %} {%
+block main %}
+<div class="categories-page">
+  <div class="column">
+    <div class="categories">
+      {% for category in categories %}
+      <a href="{{ BASE }}category/{{ category.category_id }}" class="category">
+        <img src="{{BASE}}assets/img/uploads/{{ category.img_path}}" alt="" />
+        <p>{{ category.name|e|title }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

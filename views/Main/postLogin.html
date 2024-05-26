@@ -1,0 +1,8 @@
+{% extends "_global/index.html" %} {% block main %}
+<div class="error-page column">
+  <div class="message-box">
+    <p>{{message}}</p>
+    <a href="{{app.request.headers.get('referer')}}">Pokusaj ponovo</a>
+  </div>
+</div>
+{% endblock %}

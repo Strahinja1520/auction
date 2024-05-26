@@ -1,0 +1,246 @@
+{% extends "_global/index.html" %}{% block title %}Profil{% endblock %} {% block
+main %}
+<div class="register column">
+  <div class="register-form">
+    <h1
+      style="
+        padding: 10px;
+        background-color: #4c12fcbe;
+        color: white;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 45px;
+        text-transform: uppercase;
+        width: 80%;
+      "
+    >
+      Korisnicki podaci
+    </h1>
+    <form action="{{ BASE }}user/profile/edit" method="post">
+      <div>
+        <label for="input_email">E-mail:</label>
+        <input
+          value="{{user.email}}"
+          type="email"
+          id="input_email"
+          name="reg_email"
+          required
+          placeholder="Unesite Vas E-mail"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <label for="input_forename">Ime:</label>
+        <input
+          value="{{user.forename}}"
+          type="text"
+          id="input_forename"
+          name="reg_forename"
+          required
+          placeholder="Unesite Ime"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <label for="input_lastname">Prezime:</label>
+        <input
+          value="{{user.surname}}"
+          type="text"
+          id="input_lastname"
+          name="reg_lastname"
+          required
+          placeholder="Unesite Prezime"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <label for="input_phone">Telefon:</label>
+        <input
+          value="{{user.phone|slice(5)}}"
+          type="text"
+          id="input_phone"
+          name="reg_phone"
+          required
+          placeholder="Unesite broj Telefona"
+          class="input-form"
+        />
+      </div>
+
+      <div>
+        <label for="input_username">Korisnicko ime:</label>
+        <input
+          value="{{user.username}}"
+          type="text"
+          id="input_username"
+          name="reg_username"
+          required
+          placeholder="Unesite korisnicko ime"
+          class="input-form"
+        />
+      </div>
+      <div>
+        <button class="button-form" type="submit">Edit</button>
+      </div>
+    </form>
+  </div>
+  <div class="register-img">
+    <img src="{{BASE}}assets/img/profile3.svg" alt="" />
+  </div>
+</div>
+<div class="column">
+  <h2
+    style="
+      padding: 10px;
+      background-color: #11ddb1b6;
+      color: white;
+      margin-bottom: 20px;
+    "
+    id="myAuctions"
+  >
+    AKTIVNE AUKCIJE:
+  </h2>
+  {% if not auctions %}
+  <p>NEMATE NIJEDNU AKTIVNU AUKCIJU</p>
+  {% endif %}
+  <ul>
+    {% for auction in auctions %}
+    <li>
+      <div class="auction-wrapper">
+        <div class="auction">
+          <div class="auction-img">
+            <a href="{{ BASE }}auction/{{ auction.auction_id }}">
+              <img
+                src="{{BASE}}assets/img/uploads/{{ auction.img_path}}"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="auction-details-wrapper">
+            <div class="auction-title">
+              <a
+                style="color: black"
+                href="{{ BASE }}auction/{{ auction.auction_id }}"
+                >{{ auction.title|e }}</a
+              >
+            </div>
+            <div class="auction-details">
+              <div class="auction-start">
+                <p>Aukcija pocela:</p>
+                <p class="date">{{ auction.creation_date|date("j. n. Y.") }}</p>
+              </div>
+              <div class="auction-expire">
+                <p>Datum isteka:</p>
+                <p class="date">
+                  {{ auction.expire_date is null ? "-" :
+                  auction.creation_date|date("j. n. Y.")}}
+                </p>
+              </div>
+              <div class="auction-price">
+                <p>Pocetna Cena:</p>
+                <p class="price">{{ auction.starting_price|e }}RSD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="auction-controlls">
+          <a href="{{BASE}}auction/edit/{{auction.auction_id}}"
+            ><button style="border: 3px solid #11ddb1" class="auction-edit-btn">
+              Edit
+            </button></a
+          >
+          <a href="{{BASE}}auction/delete/{{auction.auction_id}}"
+            ><button
+              style="border: 3px solid #e6688b"
+              class="auction-delete-btn"
+            >
+              Delete
+            </button></a
+          >
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h2
+    style="
+      padding: 10px;
+      background-color: #e27997bb;
+      color: white;
+      margin-bottom: 20px;
+    "
+    id="myAuctions"
+  >
+    GOTOVE AUKCIJE:
+  </h2>
+  {% if not inactive %}
+  <p>NEMATE NIJEDNU ZAVRSENU AUKCIJU</p>
+  {% endif %}
+  <ul>
+    {% for auction in inactive %}
+    <li>
+      <div class="auction-wrapper">
+        <div class="auction">
+          <div class="auction-img">
+            <img
+              src="{{BASE}}assets/img/uploads/{{ auction.img_path}}"
+              alt=""
+            />
+          </div>
+          <div class="auction-details-wrapper">
+            <div class="auction-title">
+              <a
+                style="color: black"
+                href="{{ BASE }}auction/{{ auction.auction_id }}"
+                >{{ auction.title|e }}</a
+              >
+            </div>
+            <div class="auction-details">
+              <div class="auction-start">
+                <p>Aukcija pocela:</p>
+                <p class="date">{{ auction.creation_date|date("j. n. Y.") }}</p>
+              </div>
+              <div class="auction-expire">
+                <p>Datum isteka:</p>
+                <p class="date">
+                  {{ auction.expire_date is null ? "-" :
+                  auction.creation_date|date("j. n. Y.")}}
+                </p>
+              </div>
+              <div class="auction-price">
+                <p>Pocetna Cena:</p>
+                <p class="price">{{ auction.starting_price|e }}RSD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="auction-controlls"
+          style="display: flex; justify-content: space-between"
+        >
+          <p
+            style="
+              background-color: #75dec7;
+              color: #4c12fc;
+              font-size: 20px;
+              padding: 10px;
+              border-radius: 5px;
+            "
+          >
+            POBEDNIK JE: {{winner.email}}
+          </p>
+          <a href="{{BASE}}auction/delete/{{auction.auction_id}}"
+            ><button class="auction-delete-btn">Delete</button></a
+          >
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{BASE}}/assets/js/regValidation.js"></script>
+{% endblock %}

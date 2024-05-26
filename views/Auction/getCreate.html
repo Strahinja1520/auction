@@ -1,0 +1,88 @@
+{% extends "_global/index.html" %}{% block title %}Aukcija{% endblock %}{% block
+main %}
+
+<div class="register-form">
+  <h1
+    style="
+      padding: 10px;
+      background-color: #4c12fcbe;
+      color: white;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 45px;
+      text-transform: uppercase;
+      width: 80%;
+    "
+  >
+    NOVA AUKCIJA
+  </h1>
+  <form
+    action="{{BASE}}auction/create"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <div>
+      <label for="title">Naslov</label>
+      <input type="text" id="title" name="title" required class="input-form" />
+    </div>
+    <div>
+      <label for="description">Opis</label>
+      <textarea
+        name="description"
+        id="description"
+        cols="30"
+        rows="10"
+        required
+        placeholder="Opis aukcije"
+      ></textarea>
+    </div>
+    <div>
+      <label for="category">Kategorija:</label>
+      <select name="category" id="category" required>
+        {% for category in categories %}
+        <option value="{{category.category_id}}">{{category.name}}</option>
+        {% endfor %}
+      </select>
+      <div>
+        <label for="price">Pocetna cena:</label>
+        <input
+          type="number"
+          name="price"
+          id="price"
+          min="10"
+          step="10"
+          required
+          class="input-form"
+        />
+      </div>
+      <div>
+        <label for="image">Postavite sliku:</label>
+        <input
+          type="file"
+          name="image"
+          id="image"
+          required
+          class="input-form"
+        />
+      </div>
+      <div>
+        <label for="expire_number"
+          >Vreme trajanja aukcije posle svake licitacije:</label
+        >
+        <select name="expire_number" id="expire_number" required>
+          <option value="1">Jedan dan</option>
+          <option value="2">Dva dana</option>
+          <option value="3">Tri dana</option>
+          <option value="4">Cetiri dana</option>
+          <option value="5">Pet dana</option>
+        </select>
+      </div>
+      <br />
+      <div>
+        <button class="button-form" type="submit">Postavi aukciju!</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

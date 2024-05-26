@@ -1,0 +1,119 @@
+{% extends "_global/index.html" %} {% block main %}
+
+<div class="column">
+  <div class="auction-show">
+    <div class="auction-show-img">
+      <div class="show-offers">Poslednje ponude <span>&darr;</span></div>
+      <img src="{{BASE}}assets/img/uploads/{{auction.img_path}}" alt="" />
+    </div>
+    <div class="auction-show-details">
+      <div class="auction-show-title">
+        <h1>
+          <span id="auction-title" data-title="{{auction.title}}"
+            >{{auction.title|e}}</span
+          ><span class="auction-username"> - {{user.username}}</span>
+        </h1>
+      </div>
+      <div class="auction-show-descr">
+        <p>{{ auction.description|nl2br }}</p>
+      </div>
+      <div class="auction-show-table">
+        <table>
+          <tr>
+            <td>Pocetna cena:</td>
+            <td data-price="{{ auction.starting_price }}" class="start-price">
+              {{ auction.starting_price }}RSD
+            </td>
+          </tr>
+          <tr>
+            <td>Trenutna cena:</td>
+            <td data-price="{{ lastOfferPrice }}" class="current-price">
+              {% if lastOfferPrice == "-"%} {{ lastOfferPrice }} {% else %} {{
+              lastOfferPrice }}RSD {% endif %}
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td>Datum pocetka:</td>
+            <td class="start-date">
+              {{ auction.creation_date|date("j. n. Y.") }}
+            </td>
+          </tr>
+          <tr>
+            <td>Datum isteka:</td>
+            <td data-datetime="{{auction.expire_date}}" class="expire-date">
+              {{ auction.expire_date is null ? "-" :
+              auction.expire_date|date("j. n. Y.")}}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="make-offer">
+        <button class="btn-offer">Licitiraj</button>
+      </div>
+      <div id="timer"></div>
+    </div>
+  </div>
+  <div class="popup-modal-offer">
+    <div
+      style="background-image: url('{{BASE}}assets/img/bg.jpg'); border: 5px solid #4c12fc;"
+      class="offers-view"
+    >
+      {% for offer in offers %}
+      <div class="single-offer">
+        <p class="offer-user-id">
+          Username: <span class="offer-values">{{ offer.username }}</span>
+        </p>
+        <p class="offer-price">
+          Iznos: <span class="offer-values">{{ offer.price }}</span>
+        </p>
+        <p class="offer-datetime">
+          Datum:
+          <span data-date="{{ offer.creation_date }}" class="offer-values"
+            >{{ offer.creation_date }}</span
+          >
+        </p>
+      </div>
+      {% endfor %}
+      <div class="close-offers">Zatvori</div>
+    </div>
+  </div>
+  <div class="overlay-offer"></div>
+  <div
+    style="background-image: url('{{BASE}}assets/img/bg.jpg');"
+    class="popup-modal"
+  >
+    <div class="popup-modal-content">
+      <button class="close-modal">X</button>
+
+      <h4>Podesi licitaciju</h4>
+      <p>Trenutna cena: <span>{{lastOfferPrice}}RSD</span></p>
+      <form action="{{BASE}}/offer/create" method="post">
+        <input
+          type="hidden"
+          name="auction_id"
+          value="{{ auction.auction_id }}"
+        />
+        <input
+          type="number"
+          id="new-pice"
+          name="new-price"
+          min="10"
+          step="10"
+          required
+          class="offerPrice"
+          placeholder="Unesi cenu"
+        />
+        <p class="error"></p>
+        <button id="submit" type="submit">Licitiraj</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="overlay"></div>
+{% endblock %} {% block title %} {{auction.title|e}} {% endblock %} {% block
+scripts%}
+<script src="{{BASE}}/assets/js/modalOffer.js"></script>
+{% endblock %}

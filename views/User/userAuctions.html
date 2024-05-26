@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{{ BASE }}assets/css/main.css" />
+    <title>Admin panel</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{{BASE}}admin-dashboard">Admin Panel</a>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{{BASE}}admin-dashboard"
+                  >Moderatori</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{{BASE}}admin-dashboard/users"
+                  >Korisnici</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{BASE}}admin-dashboard/users"
+                  >Kategorije</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-nav d-flex">
+            <a class="nav-link" type="button" href="{{BASE}}">Aplikacija</a>
+            <a class="nav-link" type="button" href="{{ BASE }}user/log-out"
+              >Odjava</a
+            >
+          </div>
+        </div>
+      </nav>
+      <h1 style="color: black; text-align: center" class="mt-4">
+        <span class="bg-primary p-2 text-light">{{user.username}}</span>
+      </h1>
+      <div>
+        <h3 style="color: black" class="bg-primary text-light p-3 mt-3">
+          AKTIVNE AUKCIJE:
+        </h3>
+        {% for auction in active %}
+        <div>
+          <table class="table table-striped mt-3">
+            <tr>
+              <th>Naslov</th>
+              <th>Opis</th>
+              <th>Pocetna cena</th>
+              <th>Trenutna cena</th>
+              <th>Datum pocetka</th>
+              <th>Datum isteka</th>
+              <th>Slika</th>
+              <th>Akcija</th>
+            </tr>
+            <tr>
+              <td>{{auction.title}}</td>
+              <td class="desc-container-active">
+                <p id="desc">{{auction.description}}</p>
+                <span
+                  data-id="{{auction.auction_id}}"
+                  style="cursor: pointer; color: blue"
+                  id="btnExpander"
+                  >Prosiri</span
+                >
+              </td>
+              <td>{{auction.starting_price}}RSD</td>
+              <td>{{offerPriceActive}}RSD</td>
+              <td>{{auction.creation_date}}</td>
+              <td>{{auction.expire_date}}</td>
+              <td>
+                <img
+                  src="{{BASE}}assets/img/uploads/{{ auction.img_path}}"
+                  alt=""
+                  width="100px"
+                  height="100px"
+                />
+              </td>
+              <td>
+                <a
+                  class="btn btn-danger"
+                  href="{{BASE}}admin-dashboard/auction/delete/{{auction.auction_id}}"
+                >
+                  Obrisi
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        {% endfor %}
+      </div>
+      <div>
+        <h3 style="color: black" class="bg-dark text-light p-3 mt-3">
+          GOTOVE AUKCIJE:
+        </h3>
+        {% for auction in inactive %}
+        <table class="table table-striped mt-3">
+          <tr>
+            <th>Naslov</th>
+            <th>Opis</th>
+            <th>Pocetna cena</th>
+            <th>Zavrsna cena</th>
+            <th>Datum pocetka</th>
+            <th>Datum isteka</th>
+            <th>Slika</th>
+            <th>Auction</th>
+          </tr>
+          <tr>
+            <td>{{auction.title}}</td>
+            <td class="desc-container-inactive">
+              <p id="desc">{{auction.description}}</p>
+              <span
+                data-id="{{auction.auction_id}}"
+                style="cursor: pointer; color: blue"
+                id="btnExpander"
+                >Prosiri</span
+              >
+            </td>
+            <td>{{auction.starting_price}}RSD</td>
+            <td>{{offerPriceInactive}}RSD</td>
+            <td>{{auction.creation_date}}</td>
+            <td>{{auction.expire_date}}</td>
+            <td>
+              <img
+                src="{{BASE}}assets/img/uploads/{{ auction.img_path}}"
+                alt=""
+                width="100px"
+                height="100px"
+              />
+            </td>
+            <td>
+              <a
+                class="btn btn-danger"
+                href="{{BASE}}admin-dashboard/auction/delete/{{auction.auction_id}}"
+              >
+                Obrisi
+              </a>
+            </td>
+          </tr>
+        </table>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let containerInactive = document.querySelectorAll(
+        ".desc-container-inactive"
+      );
+      containerInactive.forEach((con) => {
+        let tekst = con.querySelector("#desc");
+        let ceoTekst = tekst.innerHTML;
+        let skraceniTekst;
+        if (tekst.innerHTML.length > 80) {
+          skraceniTekst = tekst.innerHTML.substring(0, 80);
+          tekst.innerHTML = skraceniTekst;
+        }
+
+        let btnExp = con.querySelector("#btnExpander");
+        if (tekst.innerHTML.length < 80) {
+          btnExp.style.display = "none";
+        }
+        btnExp.addEventListener("click", () => {
+          if (btnExp.innerHTML == "Prosiri") {
+            tekst.innerHTML = ceoTekst;
+            btnExp.innerHTML = "Skupi";
+          } else {
+            tekst.innerHTML = skraceniTekst;
+            btnExp.innerHTML = "Prosiri";
+          }
+        });
+      });
+
+      let containerAactive = document.querySelectorAll(
+        ".desc-container-active"
+      );
+      containerAactive.forEach((con) => {
+        let tekst = con.querySelector("#desc");
+        let ceoTekst = tekst.innerHTML;
+        let skraceniTekst;
+        if (tekst.innerHTML.length > 80) {
+          skraceniTekst = tekst.innerHTML.substring(0, 80);
+          tekst.innerHTML = skraceniTekst;
+        }
+
+        let btnExp = con.querySelector("#btnExpander");
+        if (tekst.innerHTML.length < 80) {
+          btnExp.style.display = "none";
+        }
+        btnExp.addEventListener("click", () => {
+          if (btnExp.innerHTML == "Prosiri") {
+            tekst.innerHTML = ceoTekst;
+            btnExp.innerHTML = "Skupi";
+          } else {
+            tekst.innerHTML = skraceniTekst;
+            btnExp.innerHTML = "Prosiri";
+          }
+        });
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,56 @@
+{% extends "_global/index.html" %} {% block search %}
+<div class="search-box">
+  <form action="{{ BASE }}search" method="post">
+    <input type="text" name="search" />
+    <button type="submit">Search</button>
+  </form>
+</div>
+{% endblock %} {% block main %}
+<section class="column hero-section">
+  <div class="hero-text">
+    <h1>
+      Brzo i lako do unikata <br />
+      Brzo i lako do novca
+    </h1>
+    <p>
+      Dobrodošli na našu aukcijsku platformu - gde se snovi ostvaruju i retkosti
+      postaju dostupne. Zaronite duboko u svet aukcija, istražite naše trenutne
+      događaje i pripremite se za uzbudljivu aukcijsku avanturu. Vaša sledeća
+      dragocenost čeka na vas. Kliknite, istražite i licitirajte - započnite
+      svoje putovanje sada!
+    </p>
+    <a href="{{BASE}}auction/create"
+      ><button id="createAuction">Napravi aukciju</button></a
+    >
+  </div>
+  <div class="hero-img">
+    <img src="{{BASE}}/assets/img/transparent1.png" alt="" />
+  </div>
+</section>
+<article class="best-categories">
+  <section class="column">
+    <h2
+      style="
+        padding: 10px;
+        background-color: #4c12fcbe;
+        color: white;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 40px;
+        text-transform: uppercase;
+      "
+    >
+      Najtrazenije kategorije
+    </h2>
+    <div class="categories">
+      {% for category in categories %}
+      <a href="{{ BASE }}category/{{ category.category_id }}" class="category">
+        <img src="{{BASE}}assets/img/uploads/{{ category.img_path}}" alt="" />
+        <p>{{ category.name|e|title }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+</article>
+<article id="about"></article>
+{% endblock %}

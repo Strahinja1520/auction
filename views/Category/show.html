@@ -1,0 +1,68 @@
+{% extends "_global/index.html" %} {% block main %}
+<div class="column">
+  <h1
+    style="
+      padding: 10px;
+      background-color: #4c12fcbe;
+      color: white;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 40px;
+      text-transform: uppercase;
+    "
+    class="category-title"
+  >
+    {{category.name|e}}
+  </h1>
+  <ul>
+    {% for auction in auctionsInCategory %}
+    <li>
+      <div class="auction-wrapper">
+        <div class="auction">
+          <div class="auction-img">
+            <a href="{{ BASE }}auction/{{ auction.auction_id }}">
+              <img
+                src="{{BASE}}assets/img/uploads/{{ auction.img_path}}"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="auction-details-wrapper">
+            <div class="auction-title">
+              <a
+                style="color: black"
+                href="{{ BASE }}auction/{{ auction.auction_id }}"
+                >{{ auction.title|e }}
+                <span class="auction-username"> - {{username}}</span></a
+              >
+            </div>
+            <div class="auction-details">
+              <div class="auction-start">
+                <p>Aukcija pocela:</p>
+                <p class="date">{{ auction.creation_date|date("j. n. Y.") }}</p>
+              </div>
+              <div class="auction-expire">
+                <p>Datum isteka:</p>
+                <p class="date">
+                  {{ auction.expire_date is null ? "-" :
+                  auction.expire_date|date("j. n. Y.")}}
+                </p>
+              </div>
+              <div class="auction-price">
+                <p>Pocetna Cena:</p>
+                <p class="price">{{ auction.starting_price|e }}RSD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="auction-controlls">
+          <a href="{{BASE}}auction/{{auction.auction_id}}"
+            ><button class="auction-edit-btn">Licitiraj</button></a
+          >
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %} {% block title %} {{category.name|e}} {% endblock %}

@@ -1,0 +1,64 @@
+{% extends "_global/index.html" %} {% block main %}
+<div class="register-form">
+  <h1
+    style="
+      padding: 10px;
+      background-color: #4c12fcbe;
+      color: white;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 45px;
+      text-transform: uppercase;
+      width: 80%;
+    "
+  >
+    Edituj aukciju:
+  </h1>
+  <form
+    action="{{BASE}}auction/edit/{{auction.auction_id}}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <div class="create-auction-box">
+      <label for="title">Naslov:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        required
+        value="{{auction.title}}"
+        class="input-form"
+      />
+    </div>
+    <div class="create-auction-box">
+      <label for="description">Opis:</label>
+      <textarea
+        name="description"
+        id="description"
+        cols="55"
+        rows="18"
+        required
+        class="input-form"
+      >
+  {{auction.description}}</textarea
+      >
+    </div>
+    <div class="create-auction-box">
+      <label for="price">Pocetna cena:</label>
+      <input
+        type="number"
+        name="price"
+        id="price"
+        min="10"
+        step="10"
+        required
+        value="{{auction.starting_price}}"
+        class="input-form"
+      />
+    </div>
+    <div>
+      <button type="submit">Edituj aukciju</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

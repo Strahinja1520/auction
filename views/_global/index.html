@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>N&amp;N | {% block title %}Pocetna{% endblock %}</title>
+    <link rel="stylesheet" href="{{ BASE }}assets/css/main.css" />
+    <link
+      rel="shortcut icon"
+      href="{{ BASE }}favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+  <body style="background-image: url('{{BASE}}assets/img/bg.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;">
+    <!-- ?HEADER -->
+    <header class="column">
+      <div class="pre-header">
+        <div class="left-header">
+          <a href="{{BASE}}"
+            ><img src="{{ BASE }}/assets/img/transparent1.png" alt="banner1" />
+          </a>
+          <span id="logo-name">Best Secret</span>
+        </div>
+        <div class="right-header">
+          <div class="social-icons">
+            <a href="#"
+              ><img src="{{BASE}}/assets/img/icons/instagram.png" alt=""
+            /></a>
+            <a href="#"
+              ><img src="{{BASE}}/assets/img/icons/facebook.png" alt=""
+            /></a>
+            <a href="#"
+              ><img src="{{BASE}}/assets/img/icons/youtube.png" alt=""
+            /></a>
+            <a href="#"
+              ><img src="{{BASE}}/assets/img/icons/twitter.png" alt=""
+            /></a>
+          </div>
+          {% block search %}{% endblock %}
+        </div>
+      </div>
+      <nav class="main-menu">
+        <a href="{{ BASE }}">Pocetna</a>
+        <a href="{{ BASE }}categories">Kategorije</a>
+        {% if logging == "Login" %}
+        <a href="{{ BASE }}auction/create">Aukcija</a>
+        <a id="prof" href="{{ BASE }}user/profile">Profil</a>
+        <a href="{{ BASE }}user/log-out">Odjava</a>
+        {% else %}
+        <a href="{{ BASE }}user/register">Registracija</a>
+        <a href="{{ BASE }}user/login">Prijava</a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <!-- ?MAIN -->
+    <main>{% block main %}{% endblock %}</main>
+    <footer id="footer">
+      <div class="column footer-wrap">
+        <div class="footer-logo">
+          <img src="{{BASE}}/assets/img/transparent1.png" alt="" />
+        </div>
+        <div class="footer-details">
+          <div class="social-icons-footer">
+            <p>Socijalne mreze</p>
+            <div class="icons">
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/instagram2.png" alt=""
+              /></a>
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/facebook2.png" alt=""
+              /></a>
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/youtube2.png" alt=""
+              /></a>
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/twitter2.png" alt=""
+              /></a>
+            </div>
+          </div>
+          <div class="payment-methods">
+            <p>Nacini placanja</p>
+            <div class="icons">
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/mastercard.png" alt=""
+              /></a>
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/symbols.png" alt=""
+              /></a>
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/money.png" alt=""
+              /></a>
+            </div>
+          </div>
+          <div class="delivery">
+            <p>Dostava</p>
+            <div class="icons">
+              <a href="#footer"
+                ><img src="{{BASE}}/assets/img/icons/free-delivery.png" alt=""
+              /></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% block scripts%}{% endblock %}
+  </body>
+</html>

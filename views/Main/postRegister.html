@@ -1,0 +1,13 @@
+{% extends "_global/index.html" %} {% block main %}
+<div class="error-page column">
+  <div class="message-box">
+    {% if message == "Napravljen je novi nalog! Sada mozete da se prijavite." %}
+    <p>{{message}}</p>
+    <a href="{{BASE}}user/login">Uloguj se!</a>
+    {% else %}
+    <p>{{message}}</p>
+    <a href="{{app.request.headers.get('referer')}}">Vrati se nazad</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
